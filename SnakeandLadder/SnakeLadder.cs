@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SNAKE_LADDER_BATCH222
 {
-    internal class USERCASE
+    internal class SnakeAndLadder
     {
         static void Main()
         {
@@ -41,6 +41,10 @@ namespace SNAKE_LADDER_BATCH222
                             if (CURRENTPOSITION > 0)
                             {
                                 CURRENTPOSITION -= dieRoll;
+                            }
+                            else if (CURRENTPOSITION < 0)
+                            {
+                                CURRENTPOSITION = START_POSITION;
                             }
                         }
                         break;
