@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SNAKE_LADDER_BATCH222
+namespace SnakeAndLadder
 {
-    internal class SnakeAndLadder
+    internal class SnakeLadder
     {
         static void Main()
         {
