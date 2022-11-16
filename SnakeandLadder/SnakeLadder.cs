@@ -10,59 +10,98 @@ namespace SnakeAndLadder
     {
         static void Main()
         {
-            int START_POSITION = 0;
-            int WIN_POSITION = 100;
-            int CURRENTPOSITION = 0;
 
-            const int ladder = 1;
-            const int snakebite = 2;
-            Console.WriteLine("Welcome to snake and Ladder");
-            Console.WriteLine("Player will Start at Zero Position,Player position :{0}", START_POSITION);
-            Random random = new Random();
-            Random random1 = new Random(); int die_count = 0;
-            while (CURRENTPOSITION < WIN_POSITION)
+            Console.WriteLine("This is a two Player snake ladder game.");
+            int player1Position = 0;
+        int player2Position = 0;
+        Console.WriteLine("Player 1 position is: " + player1Position);
+            Console.WriteLine("Player 2 position is: " + player2Position);
+
+            while (player1Position != 100 && player2Position != 100)
             {
-                int checkOptions = random1.Next(0, 3);
-                int dieRoll = random.Next(1, 7);
-                switch (checkOptions)
+                //player1
+                Console.Write("Player 1 rolls. ");
+                player1Position += playerRoll(player1Position);
+                if (player1Position< 0)
                 {
-                    case ladder:
-                        {
-                            Console.WriteLine("Player will move forward");
-                            CURRENTPOSITION += dieRoll;
-                            if (CURRENTPOSITION > 100)
-                            {
-                                CURRENTPOSITION -= dieRoll;
-                            }
-
-                        }
-                        break;
-                    case snakebite:
-                        {
-                            Console.WriteLine("Player is bitten by a snake");
-                            if (CURRENTPOSITION > 0)
-                            {
-                                CURRENTPOSITION -= dieRoll;
-                            }
-                            else if (CURRENTPOSITION < 0)
-                            {
-                                CURRENTPOSITION = START_POSITION;
-                            }
-                        }
-                        break;
-                    default:
-                        {
-                            Console.WriteLine("There will be no play. Player stays at same position");
-                        }
-                        break;
-
+                    player1Position = 0;
                 }
-                die_count++;
+    Console.WriteLine("Player 1 position is: " + player1Position);
 
+                if (player1Position == 100)
+                {
+                    Console.WriteLine("Player 1 win the game.");
+                    break;
+                }
 
+//player2
+Console.Write("Player 2 roll. ");
+player2Position += playerRoll(player2Position);
+if (player2Position < 0)
+{
+    player2Position = 0;
+}
+Console.WriteLine("Player 2 position is: " + player2Position);
+if (player2Position == 100)
+{
+    Console.WriteLine("Player 2 win the game.");
+    break;
+}
             }
-            Console.WriteLine("CURRENTPOSITION is " + CURRENTPOSITION);
-            Console.WriteLine("Dice throw count value is {0}", die_count);
         }
+
+        public static int playerRoll(int playerPosition)
+{
+    int position = 0;
+    int playTimes = 1;
+    Random random = new Random();
+    const int Noplay = 0;
+    const int ladder = 1;
+    const int snake = 2;
+
+    while (playTimes != 0)
+    {
+    gotladder:
+        int roll = random.Next(1, 7);
+        int option = random.Next(0, 3);
+        switch (option)
+        {
+            case Noplay:
+                //no play
+                Console.WriteLine("Player choose not to play. ");
+                playTimes--;
+                break;
+            //ladder
+            case ladder:
+                if (playerPosition + position > 100)
+                {
+                    Console.WriteLine("Player choose not to play. ");
+                    playTimes--;
+                }
+                else
+                {
+                    position += roll;
+                    Console.WriteLine("Player got the ladder with {0} roll. ", roll);
+                    playTimes = 1;
+                    if (position < 100)
+                    {
+                        goto gotladder;
+                    }
+                }
+
+                break;
+            //snake
+            case snake:
+                position -= roll;
+                Console.WriteLine("Player got the snake with {0} roll. ", roll);
+                playTimes--;
+
+                break;
+        }
+
+    }
+
+    return position;
+}
     }
 }
